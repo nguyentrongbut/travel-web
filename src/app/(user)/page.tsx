@@ -1,5 +1,6 @@
 import { covertSlugUrl, sendRequest } from "@/app/utils/api";
 import IconHeartNoBg from "@/components/icons/icon.heart.no.bg";
+import IconLocation from "@/components/icons/icon.location";
 import IconStar from "@/components/icons/icon.star";
 import AppSlider from "@/components/slider/app.slider";
 import Image from "next/image";
@@ -9,9 +10,12 @@ const Home = async () => {
     const data = await sendRequest<ITravel[]>({
         url: "http://localhost:9000/api/places?_expand=country",
         method: "GET",
+        nextOption: {
+            cache: "no-store",
+        },
     });
 
-    // console.log(data1);
+    console.log(data);
 
     return (
         <main className="ml-[14%] px-7">
@@ -40,7 +44,7 @@ const Home = async () => {
                                     ></Image>
                                 </Link>
                                 <div className="flex">
-                                    <div className="flex flex-col justify-between">
+                                    <div className="flex flex-col gap-2">
                                         <Link
                                             href={`/page/${covertSlugUrl(
                                                 data.name
@@ -50,7 +54,13 @@ const Home = async () => {
                                                 {data.name}
                                             </h3>
                                         </Link>
-                                        <p className="text-sm mt-1 line-clamp-6">
+                                        <div className="flex items-center gap-2">
+                                            <IconLocation className="w-4 h-4"></IconLocation>
+                                            <h4 className="font-light text-sm capitalize">
+                                                {data.country?.name}
+                                            </h4>
+                                        </div>
+                                        <p className="text-sm font-light line-clamp-4 mt-auto">
                                             {data.description}
                                         </p>
                                     </div>

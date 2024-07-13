@@ -10,14 +10,33 @@ declare global {
         nextOption?: any;
     }
 
+    interface User {
+        id: number;
+        name: string;
+    }
+
+    interface Comment {
+        id: number;
+        text: string;
+        placeId: number;
+        userId: number;
+        user: User;
+        createdAt: number
+    }
+
+    interface Country {
+        id: number;
+        name: string;
+    }
+
     interface ITravel {
         id: number;
         name: string;
         description: string;
         image: string;
-        country: {
-            name: string;
-        }
-        rating: number
+        rating: number;
+        country: Country;
+        comments: Comment[];
     }
+
 }

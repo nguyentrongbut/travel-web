@@ -19,7 +19,7 @@ export async function generateMetadata(
     const id = temp1[temp1.length - 1];
     // fetch data
     const res = await sendRequest<ITravel>({
-        url: `http://localhost:9000/api/places/${id}`,
+        url: `http://localhost:9000/api/places-expanded-comment-country-user/${id}`,
         method: "GET",
     });
 
@@ -36,8 +36,11 @@ const Page = async (props: any) => {
     const temp1 = (temp[0]?.split("-") ?? []) as string;
     const id = temp1[temp1.length - 1];
     const res = await sendRequest<ITravel>({
-        url: `http://localhost:9000/api/places/${id}`,
+        url: `http://localhost:9000/api/places-expanded-comment-country-user/${id}`,
         method: "GET",
+        nextOption: {
+            cache: "no-store",
+        },
     });
 
     // await new Promise((resolve) => setTimeout(resolve, 400));
@@ -62,7 +65,7 @@ const Page = async (props: any) => {
                 <p>{res.description}</p>
             </section>
             <AppStarRatting></AppStarRatting>
-            <AppComments></AppComments>
+            <AppComments data={res}></AppComments>
         </main>
     );
 };

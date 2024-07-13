@@ -10,6 +10,7 @@ import IconHeartNoBg from "@/components/icons/icon.heart.no.bg";
 import IconStar from "@/components/icons/icon.star";
 import Link from "next/link";
 import { covertSlugUrl } from "@/app/utils/api";
+import IconLocation from "@/components/icons/icon.location";
 
 const AppSlider = (props: any) => {
     const { data, title } = props;
@@ -46,9 +47,9 @@ const AppSlider = (props: any) => {
                                             <Link href={`/page/${covertSlugUrl(data.name)}-${data.id}.html`}>
                                                 <h3>{data.name}</h3>
                                             </Link>
-                                            <div>
-                                                <span></span>
-                                                <h4 className="font-thin text-sm">
+                                            <div className="mt-1 flex items-center gap-1 -ml-[2px]">
+                                                <IconLocation className="w-4 h-4"></IconLocation>
+                                                <h4 className="font-light text-sm text-white capitalize">
                                                     {data.country?.name}
                                                 </h4>
                                             </div>

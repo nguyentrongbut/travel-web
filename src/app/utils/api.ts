@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import slugify from 'slugify';
 
-export const sendRequest = async <T>(props:IRequest) => {
+export const sendRequest = async <T>(props: IRequest) => {
     let {
         url,
         method,
@@ -21,10 +21,6 @@ export const sendRequest = async <T>(props:IRequest) => {
     };
     if (useCredentials) options.credentials = "include";
 
-    if (queryParams) {
-        url = `${url}?${queryString.stringify(queryParams)}`;
-    }
-
     return fetch(url, options).then(res => {
         if (res.ok) {
             return res.json() as T;
@@ -42,7 +38,7 @@ export const sendRequest = async <T>(props:IRequest) => {
 };
 
 export const covertSlugUrl = (str: string) => {
-    if(!str) return "";
-    str = slugify(str, { lower: true , locale: 'vi'});
+    if (!str) return "";
+    str = slugify(str, { lower: true, locale: 'vi' });
     return str;
 }

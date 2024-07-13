@@ -37,7 +37,7 @@ const AppSideBar = () => {
                 Travel Web
             </Link>
             <nav>
-                <ul className="flex flex-col gap-3 ml-7 mt-14 text-[#3c4457] text-lg">
+                <ul className="flex flex-col gap-4 ml-7 mt-14 text-[#3c4457] text-lg">
                     {navLinks.map((link) => {
                         const LinkIcon = link.icon;
                         return (
