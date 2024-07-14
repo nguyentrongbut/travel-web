@@ -10,32 +10,33 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useRouter } from "next/navigation";
 
-const AppDelete = (props:any) => {
-    const router = useRouter()
-    const {data} = props
-    const handleDelete = async() => {
+const AppDelete = ({ data, fetchPlaces }: { data: ITravel; fetchPlaces: () => void }) => {
+
+    const handleDelete = async () => {
         const res = await sendRequest<ITravel[]>({
             url: `http://localhost:9000/api/places/${data.id}`,
             method: "DELETE",
         });
-        if(res) {
-            router.refresh();
+        if (res) {
+            fetchPlaces();
         }
-    }
+    };
+
     return (
         <AlertDialog>
             <AlertDialogTrigger>Delete</AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>
-                        Are you sure you want to delete post {data.id}?
+                        Are you sure you want to delete post {data?.id}?
                     </AlertDialogTitle>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className="bg-[#6d71f9] text-white" onClick={handleDelete}>Continue</AlertDialogAction>
+                    <AlertDialogAction className="bg-[#6d71f9] text-white" onClick={handleDelete}>
+                        Continue
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

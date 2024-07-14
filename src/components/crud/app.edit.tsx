@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -29,7 +28,6 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { sendRequest } from "@/app/utils/api";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const formSchema = z.object({
@@ -39,10 +37,8 @@ const formSchema = z.object({
     country: z.string().min(2).max(50),
 });
 
-const AppEdit = (props: any) => {
-    const { data } = props;
+const AppEdit = ({ data, fetchPlaces }: { data: ITravel; fetchPlaces: () => void }) => {
     const [countries, setCountries] = useState<Country[]>([]);
-    const router = useRouter();
 
     useEffect(() => {
         const fetchCountries = async () => {
@@ -84,7 +80,8 @@ const AppEdit = (props: any) => {
             },
         });
         if (res) {
-            router.refresh();
+            fetchPlaces();
+            document.getElementById('closeDialog')?.click();
         }
     };
 
@@ -96,10 +93,6 @@ const AppEdit = (props: any) => {
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Edit Post</DialogTitle>
-                    <DialogDescription>
-                        Make changes to your profile here. Click save when
-                        you're done.
-                    </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
                     <form

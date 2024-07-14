@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+"use client";
 import {
     Table,
     TableBody,
@@ -13,25 +13,35 @@ import Image from "next/image";
 import AppDelete from "@/components/crud/app.delete";
 import AppAdd from "@/components/crud/app.add";
 import AppEdit from "@/components/crud/app.edit";
+import { useEffect, useState, useCallback } from "react";
 
-export const metadata: Metadata = {
-    title: "Dashboard",
-    description: "This is Dashboard Page",
-};
-const Dashboard = async () => {
-    const data = await sendRequest<ITravel[]>({
-        url: "http://localhost:9000/api/places?_expand=country",
-        method: "GET",
-        nextOption: {
-            cache: "no-store",
-        },
-    });
+const Dashboard = () => {
+    useEffect(() => {
+        document.title = "Dashboard";
+    }, []);
+    const [places, setPlaces] = useState<ITravel[]>([]);
+
+    const fetchPlaces = useCallback(async () => {
+        const data = await sendRequest<ITravel[]>({
+            url: "http://localhost:9000/api/places?_expand=country",
+            method: "GET",
+            nextOption: {
+                cache: "no-store",
+            },
+        });
+        setPlaces(data);
+    }, []);
+
+    useEffect(() => {
+        fetchPlaces();
+    }, [fetchPlaces]);
+
     return (
         <main className="ml-[14%]">
             <section className="bg-white p-8 m-7 rounded-md">
                 <div className="flex">
                     <div className="ml-auto">
-                        <AppAdd></AppAdd>
+                        <AppAdd fetchPlaces={fetchPlaces}></AppAdd>
                     </div>
                 </div>
                 <Table>
@@ -45,7 +55,7 @@ const Dashboard = async () => {
                                 Country
                             </TableHead>
                             <TableHead className="text-center">
-                                Ratting
+                                Rating
                             </TableHead>
                             <TableHead className="text-center">
                                 Actions
@@ -53,41 +63,45 @@ const Dashboard = async () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data.map((data: ITravel) => {
-                            return (
-                                <TableRow key={data.id}>
-                                    <TableCell className="font-medium text-center">
-                                        {data.id}
-                                    </TableCell>
-                                    <TableCell className="flex items-center justify-center">
-                                        <div className="rounded-md overflow-hidden w-24 h-16">
-                                            <Image
-                                                src={data.image}
-                                                alt={data.name}
-                                                width={100}
-                                                height={100}
-                                                className="w-full h-full object-cover"
-                                            ></Image>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="text-center">
-                                        {data.name}
-                                    </TableCell>
-                                    <TableCell className="text-center capitalize">
-                                        {data.country.name}
-                                    </TableCell>
-                                    <TableCell className="text-center">
-                                        {data.rating}
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex gap-4 justify-center">
-                                            <AppEdit data={data}></AppEdit>
-                                            <AppDelete data={data}></AppDelete>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
+                        {places.map((place: ITravel) => (
+                            <TableRow key={place.id}>
+                                <TableCell className="font-medium text-center">
+                                    {place.id}
+                                </TableCell>
+                                <TableCell className="flex items-center justify-center">
+                                    <div className="rounded-md overflow-hidden w-24 h-16">
+                                        <Image
+                                            src={place.image}
+                                            alt={place.name}
+                                            width={100}
+                                            height={100}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                </TableCell>
+                                <TableCell className="text-center">
+                                    {place.name}
+                                </TableCell>
+                                <TableCell className="text-center capitalize">
+                                    {place.country.name}
+                                </TableCell>
+                                <TableCell className="text-center">
+                                    {place.rating}
+                                </TableCell>
+                                <TableCell>
+                                    <div className="flex gap-4 justify-center">
+                                        <AppEdit
+                                            data={place}
+                                            fetchPlaces={fetchPlaces}
+                                        ></AppEdit>
+                                        <AppDelete
+                                            data={place}
+                                            fetchPlaces={fetchPlaces}
+                                        ></AppDelete>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </section>

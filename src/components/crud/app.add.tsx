@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -29,7 +28,6 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { sendRequest } from "@/app/utils/api";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const formSchema = z.object({
@@ -39,9 +37,8 @@ const formSchema = z.object({
     country: z.string().min(2).max(50),
 });
 
-const AppAdd = () => {
+const AppAdd = ({ fetchPlaces }: { fetchPlaces: () => void }) => {
     const [countries, setCountries] = useState<Country[]>([]);
-    const router = useRouter();
 
     useEffect(() => {
         const fetchCountries = async () => {
@@ -57,11 +54,15 @@ const AppAdd = () => {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            place: "",
+            image: "",
+            description: "",
+            country: "",
+        },
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        // console.log(values);
-
         const selectedCountry = countries.find(
             (country) => country.name === values.country
         );
@@ -77,7 +78,8 @@ const AppAdd = () => {
             },
         });
         if (res) {
-            router.refresh();
+            fetchPlaces();
+            document.getElementById("closeDialog")?.click();
         }
     };
 
@@ -89,10 +91,6 @@ const AppAdd = () => {
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Add Post</DialogTitle>
-                    <DialogDescription>
-                        Make changes to your profile here. Click save when
-                        you're done.
-                    </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
                     <form
