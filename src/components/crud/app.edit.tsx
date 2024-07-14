@@ -37,7 +37,13 @@ const formSchema = z.object({
     country: z.string().min(2).max(50),
 });
 
-const AppEdit = ({ data, fetchPlaces }: { data: ITravel; fetchPlaces: () => void }) => {
+const AppEdit = ({
+    data,
+    fetchPlaces,
+}: {
+    data: ITravel;
+    fetchPlaces: () => void;
+}) => {
     const [countries, setCountries] = useState<Country[]>([]);
 
     useEffect(() => {
@@ -81,7 +87,7 @@ const AppEdit = ({ data, fetchPlaces }: { data: ITravel; fetchPlaces: () => void
         });
         if (res) {
             fetchPlaces();
-            document.getElementById('closeDialog')?.click();
+            document.getElementById("closeDialog")?.click();
         }
     };
 

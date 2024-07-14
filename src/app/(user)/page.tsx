@@ -14,10 +14,17 @@ const Home = async () => {
             cache: "no-store",
         },
     });
-
+    
+    const data1 = await sendRequest<ITravel[]>({
+        url: "http://localhost:9000/api/places?_sort=rating&_order=desc&_limit=10",
+        method: "GET",
+        nextOption: {
+            cache: "no-store",
+        },
+    });
     return (
         <main className="ml-[14%] px-7">
-            <AppSlider data={data} title="Popular Travel"></AppSlider>
+            <AppSlider data={data1} title="Popular Travel"></AppSlider>
             <section className="bg-white pl-5 py-5 mt-7 rounded-md">
                 <h2 className="text-[26px] font-bold mb-4">All Travel</h2>
                 <div className="grid grid-cols-3 gap-3">

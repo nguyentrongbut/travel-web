@@ -25,9 +25,6 @@ const Dashboard = () => {
         const data = await sendRequest<ITravel[]>({
             url: "http://localhost:9000/api/places?_expand=country",
             method: "GET",
-            nextOption: {
-                cache: "no-store",
-            },
         });
         setPlaces(data);
     }, []);
@@ -45,12 +42,15 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <Table>
-                    <TableCaption>A list of your recent invoices.</TableCaption>
+                    <TableCaption>A list of posts</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="text-center">ID</TableHead>
                             <TableHead className="text-center">Image</TableHead>
                             <TableHead className="text-center">Place</TableHead>
+                            <TableHead className="text-center">
+                                Description
+                            </TableHead>
                             <TableHead className="text-center">
                                 Country
                             </TableHead>
@@ -66,7 +66,7 @@ const Dashboard = () => {
                         {places.map((place: ITravel) => (
                             <TableRow key={place.id}>
                                 <TableCell className="font-medium text-center">
-                                    {place.id}
+                                    <p className="line-clamp-1">{place.id}</p>
                                 </TableCell>
                                 <TableCell className="flex items-center justify-center">
                                     <div className="rounded-md overflow-hidden w-24 h-16">
@@ -80,10 +80,13 @@ const Dashboard = () => {
                                     </div>
                                 </TableCell>
                                 <TableCell className="text-center">
-                                    {place.name}
+                                    <h2 className="line-clamp-1">{place.name}</h2>
+                                </TableCell>
+                                <TableCell className="text-left max-w-[200px]">
+                                    <p className="line-clamp-3">{place.description}</p>
                                 </TableCell>
                                 <TableCell className="text-center capitalize">
-                                    {place.country.name}
+                                    <h3 className="line-clamp-1">{place.country.name}</h3>
                                 </TableCell>
                                 <TableCell className="text-center">
                                     {place.rating}

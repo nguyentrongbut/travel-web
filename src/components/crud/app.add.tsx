@@ -80,6 +80,7 @@ const AppAdd = ({ fetchPlaces }: { fetchPlaces: () => void }) => {
         if (res) {
             fetchPlaces();
             document.getElementById("closeDialog")?.click();
+            form.reset();
         }
     };
 
