@@ -15,8 +15,6 @@ const Home = async () => {
         },
     });
 
-    console.log(data);
-
     return (
         <main className="ml-[14%] px-7">
             <AppSlider data={data} title="Popular Travel"></AppSlider>

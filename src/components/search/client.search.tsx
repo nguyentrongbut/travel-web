@@ -35,7 +35,7 @@ const ClientSearch = () => {
     if (!query || posts.length === 0) {
         return <div className="text-center mt-10">No search results exist</div>;
     }
-
+    
     return (
         <section>
             <div className="text-center mt-10">
