@@ -29,7 +29,11 @@ const AppSlider = (props: any) => {
                         <SwiperSlide key={data.id}>
                             <div className="flex rounded-md bg-slate-300 relative overflow-hidden z-10">
                                 <div className="aspect-[6/7] w-full h-full">
-                                    <Link href={`/page/${covertSlugUrl(data.name)}-${data.id}.html`}>
+                                    <Link
+                                        href={`/page/${covertSlugUrl(
+                                            data.name
+                                        )}-${data.id}.html`}
+                                    >
                                         <Image
                                             src={data.image}
                                             width={600}
@@ -42,22 +46,25 @@ const AppSlider = (props: any) => {
                                         <IconHeartNoBg className="text-white w-5 h-5"></IconHeartNoBg>
                                         {/* <IconHeart></IconHeart> */}
                                     </button>
-                                    <div className="absolute bottom-4 left-4 right-4 flex justify-between text-white">
-                                        <div>
-                                            <Link href={`/page/${covertSlugUrl(data.name)}-${data.id}.html`}>
-                                                <h3>{data.name}</h3>
-                                            </Link>
-                                            <div className="mt-1 flex items-center gap-1 -ml-[2px]">
-                                                <IconLocation className="w-4 h-4"></IconLocation>
-                                                <h4 className="font-light text-sm text-white capitalize">
-                                                    {data.country?.name}
-                                                </h4>
-                                            </div>
+
+                                    <div className="absolute bottom-4 left-4 text-white">
+                                        <Link
+                                            href={`/page/${covertSlugUrl(
+                                                data.name
+                                            )}-${data.id}.html`}
+                                        >
+                                            <h3>{data.name}</h3>
+                                        </Link>
+                                        <div className="mt-1 flex items-center gap-1 -ml-[2px]">
+                                            <IconLocation className="w-4 h-4"></IconLocation>
+                                            <h4 className="font-light text-sm text-white capitalize">
+                                                {data.country?.name}
+                                            </h4>
                                         </div>
-                                        <div className="flex items-center gap-2 text-sm mt-auto">
-                                            <IconStar className="w-5 h-5 text-yellow-400 -mt-1"></IconStar>
-                                            <span>{data.rating}</span>
-                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm mt-auto absolute bottom-4 right-4 text-white">
+                                        <IconStar className="w-5 h-5 text-yellow-400 -mt-1"></IconStar>
+                                        <span>{data.rating}</span>
                                     </div>
                                 </div>
                             </div>

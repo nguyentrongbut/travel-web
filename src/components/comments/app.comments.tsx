@@ -62,7 +62,7 @@ const AppComments = (props: { data: ITravel }) => {
                     </p>
                 </div>
                 <div className="w-full">
-                    {data.comments.map((comment) => (
+                    {data.comments?.map((comment) => (
                         <div
                             key={comment.id}
                             className="flex gap-4 hover:bg-slate-300/50 rounded-md p-2"
