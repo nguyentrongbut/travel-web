@@ -19,7 +19,7 @@ export async function generateMetadata(
     const id = temp1[temp1.length - 1];
     // fetch data
     const res = await sendRequest<ITravel>({
-        url: `http://localhost:9000/api/places-expanded-comment-country-user/${id}`,
+        url: `https://travel-web-json-server.onrender.com/api/places-expanded-comment-country-user/${id}`,
         method: "GET",
     });
 
@@ -36,7 +36,7 @@ const Page = async (props: any) => {
     const temp1 = (temp[0]?.split("-") ?? []) as string;
     const id = temp1[temp1.length - 1];
     const res = await sendRequest<ITravel>({
-        url: `http://localhost:9000/api/places-expanded-comment-country-user/${id}`,
+        url: `https://travel-web-json-server.onrender.com/api/places-expanded-comment-country-user/${id}`,
         method: "GET",
         nextOption: {
             cache: "no-store",

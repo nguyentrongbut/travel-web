@@ -49,7 +49,7 @@ const AppEdit = ({
     useEffect(() => {
         const fetchCountries = async () => {
             const data = await sendRequest<Country[]>({
-                url: `http://localhost:9000/api/countries`,
+                url: `https://travel-web-json-server.onrender.com/api/countries`,
                 method: "GET",
             });
             setCountries(data);
@@ -76,7 +76,7 @@ const AppEdit = ({
         );
 
         const res = await sendRequest<ITravel>({
-            url: `http://localhost:9000/api/places/${data.id}`,
+            url: `https://travel-web-json-server.onrender.com/api/places/${data.id}`,
             method: "PATCH",
             body: {
                 name: values.place,

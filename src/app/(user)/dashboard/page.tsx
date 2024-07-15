@@ -23,7 +23,7 @@ const Dashboard = () => {
 
     const fetchPlaces = useCallback(async () => {
         const data = await sendRequest<ITravel[]>({
-            url: "http://localhost:9000/api/places?_expand=country",
+            url: "https://travel-web-json-server.onrender.com/api/places?_expand=country",
             method: "GET",
         });
         setPlaces(data);

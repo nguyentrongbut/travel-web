@@ -13,7 +13,7 @@ const ClientSearch = () => {
 
     const fetchPosts = async (query: string) => {
         const posts = await sendRequest<ITravel[]>({
-            url: `http://localhost:9000/api/places?name_like=${query}`,
+            url: `https://travel-web-json-server.onrender.com/api/places?name_like=${query}`,
             method: "GET",
             nextOption: {
                 cache: "no-store",

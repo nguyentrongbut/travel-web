@@ -15,7 +15,7 @@ const AppComments = (props: { data: ITravel }) => {
 
     const handleSubmit = async () => {
         const res1 = await sendRequest<ITravel>({
-            url: "http://localhost:9000/api/comments",
+            url: "https://travel-web-json-server.onrender.com/api/comments",
             method: "POST",
             body: {
                 text: yourComment,

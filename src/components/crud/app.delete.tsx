@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { sendRequest } from "@/app/utils/api";
 import {
     AlertDialog,
@@ -11,11 +11,16 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const AppDelete = ({ data, fetchPlaces }: { data: ITravel; fetchPlaces: () => void }) => {
-
+const AppDelete = ({
+    data,
+    fetchPlaces,
+}: {
+    data: ITravel;
+    fetchPlaces: () => void;
+}) => {
     const handleDelete = async () => {
         const res = await sendRequest<ITravel[]>({
-            url: `http://localhost:9000/api/places/${data.id}`,
+            url: `https://travel-web-json-server.onrender.com/api/places/${data.id}`,
             method: "DELETE",
         });
         if (res) {
@@ -34,7 +39,10 @@ const AppDelete = ({ data, fetchPlaces }: { data: ITravel; fetchPlaces: () => vo
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className="bg-[#6d71f9] text-white" onClick={handleDelete}>
+                    <AlertDialogAction
+                        className="bg-[#6d71f9] text-white"
+                        onClick={handleDelete}
+                    >
                         Continue
                     </AlertDialogAction>
                 </AlertDialogFooter>

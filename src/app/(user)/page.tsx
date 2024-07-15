@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Home = async () => {
     const data = await sendRequest<ITravel[]>({
-        url: "http://localhost:9000/api/places?_expand=country",
+        url: "https://travel-web-json-server.onrender.com/api/places?_expand=country",
         method: "GET",
         nextOption: {
             cache: "no-store",
@@ -16,7 +16,7 @@ const Home = async () => {
     });
     
     const data1 = await sendRequest<ITravel[]>({
-        url: "http://localhost:9000/api/places?_expand=country&_sort=rating&_order=desc&_limit=10",
+        url: "https://travel-web-json-server.onrender.com/api/places?_expand=country&_sort=rating&_order=desc&_limit=10",
         method: "GET",
         nextOption: {
             cache: "no-store",
