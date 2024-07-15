@@ -4,7 +4,7 @@ import { covertSlugUrl, sendRequest } from "@/app/utils/api";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
 const ClientSearch = () => {
     const searchParams = useSearchParams();
@@ -35,7 +35,7 @@ const ClientSearch = () => {
     if (!query || posts.length === 0) {
         return <div className="text-center mt-10">No search results exist</div>;
     }
-    
+
     return (
         <section>
             <div className="text-center mt-10">
@@ -88,4 +88,10 @@ const ClientSearch = () => {
     );
 };
 
-export default ClientSearch;
+const Page = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+        <ClientSearch />
+    </Suspense>
+);
+
+export default Page;

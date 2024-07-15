@@ -16,7 +16,7 @@ const Home = async () => {
     });
     
     const data1 = await sendRequest<ITravel[]>({
-        url: "http://localhost:9000/api/places?_sort=rating&_order=desc&_limit=10",
+        url: "http://localhost:9000/api/places?_expand=country&_sort=rating&_order=desc&_limit=10",
         method: "GET",
         nextOption: {
             cache: "no-store",

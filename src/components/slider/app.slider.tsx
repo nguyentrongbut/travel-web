@@ -53,7 +53,7 @@ const AppSlider = (props: any) => {
                                                 data.name
                                             )}-${data.id}.html`}
                                         >
-                                            <h3>{data.name}</h3>
+                                            <h3 className="line-clamp-2">{data.name}</h3>
                                         </Link>
                                         <div className="mt-1 flex items-center gap-1 -ml-[2px]">
                                             <IconLocation className="w-4 h-4"></IconLocation>
